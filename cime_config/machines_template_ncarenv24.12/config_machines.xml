@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+
+<config_machines version="2.0">
+
+  <machine MACH="derecho">
+    <DESC>NCAR AMD EPYC, batch system is PBSPRO</DESC>
+    <NODENAME_REGEX>de.*.hpc.ucar.edu</NODENAME_REGEX>
+    <!-- MPT sometimes timesout at model start time, the next two lines cause
+    case_run.py to detect the timeout and retry FORCE_SPARE_NODES times -->
+    <OS>CNL</OS>
+    <COMPILERS>intel</COMPILERS>
+    <MPILIBS>mpich</MPILIBS>
+    <PROJECT>UMIA0045</PROJECT>
+    <CIME_OUTPUT_ROOT>$ENV{SCRATCH}</CIME_OUTPUT_ROOT>
+    <DIN_LOC_ROOT>$ENV{CESMDATAROOT}/inputdata</DIN_LOC_ROOT>
+    <DIN_LOC_ROOT_CLMFORC>$ENV{CESMDATAROOT}/inputdata/atm/datm7</DIN_LOC_ROOT_CLMFORC>
+    <DOUT_S_ROOT>$CIME_OUTPUT_ROOT/archive/$CASE</DOUT_S_ROOT>
+    <BASELINE_ROOT>$ENV{CESMDATAROOT}/cesm_baselines</BASELINE_ROOT>
+    <CCSM_CPRNC>$ENV{CESMDATAROOT}/cprnc/cprnc</CCSM_CPRNC>
+    <GMAKE_J>16</GMAKE_J>
+    <BATCH_SYSTEM>pbs</BATCH_SYSTEM>
+    <SUPPORTED_BY>cseg</SUPPORTED_BY>
+    <MAX_TASKS_PER_NODE>128</MAX_TASKS_PER_NODE>
+    <MAX_MPITASKS_PER_NODE>128</MAX_MPITASKS_PER_NODE>
+    <PROJECT_REQUIRED>TRUE</PROJECT_REQUIRED>
+    <mpirun mpilib="default">
+      <executable>mpiexec</executable>
+      <arguments>
+        <arg name="label"> --label</arg>
+        <arg name="buffer"> --line-buffer</arg>
+        <arg name="num_tasks" > -n {{ total_tasks }}</arg>
+      </arguments>
+    </mpirun>
+    <module_system type="module" allow_error="true">
+      <init_path lang="perl">$LMOD_ROOT/lmod/init/perl</init_path>
+      <init_path lang="python">$LMOD_ROOT/lmod/init/env_modules_python.py</init_path>
+      <init_path lang="sh">$LMOD_ROOT/lmod/init/sh</init_path>
+      <init_path lang="csh">$LMOD_ROOT/lmod/init/csh</init_path>
+      <cmd_path lang="perl">$LMOD_ROOT/lmod/libexec/lmod perl</cmd_path>
+      <cmd_path lang="python">$LMOD_ROOT/lmod/libexec/lmod python</cmd_path>
+      <cmd_path lang="sh">module</cmd_path>
+      <cmd_path lang="csh">module</cmd_path>
+      <modules>
+        <command name="load">ncarenv/24.12</command>
+        <command name="reset"/>
+        <command name="load">craype</command>
+        <command name="load">cmake</command>
+       <command name="unload">hdf5</command>
+        <command name="unload">netcdf/4.9.2</command>
+      </modules>
+      <modules compiler="intel">
+        <command name="load">intel/2024.2.1</command>
+        <command name="load">mkl</command>
+      </modules>
+      <modules compiler="intel-oneapi">
+        <command name="load">intel-oneapi/2024.2.1</command>
+        <command name="load">mkl</command>
+      </modules>
+      <modules compiler="cray">
+        <command name="load">craype/2.7.31</command>
+        <command name="load">libfabric/1.15.2.0</command>
+      </modules>
+      <modules compiler="gnu">
+        <command name="load">gcc/12.4.0</command>
+      </modules>
+      <modules>
+        <command name="load">ncarcompilers/1.0.0</command>
+        <command name="load">cmake</command>
+      </modules>
+      <modules mpilib="mpich">
+              <command name="load">cray-mpich/8.1.29</command>
+      </modules>
+      <modules mpilib="mpi-serial">
+        <command name="load">mpi-serial/2.5.0</command>
+      </modules>
+
+      <modules mpilib="mpi-serial">
+        <command name="load">netcdf/4.9.2</command>
+      </modules>
+
+      <modules mpilib="!mpi-serial">
+        <command name="load">netcdf-mpi/4.9.2</command>
+        <command name="load">parallel-netcdf/1.14.0</command>
+        <command name="load">parallelio/2.6.3</command>
+      </modules>
+
+      <modules DEBUG="FALSE">
+        <command name="load">esmf/8.8.0</command>
+      </modules>
+
+      <modules DEBUG="TRUE">
+        <command name="load">esmf/8.8.0-debug</command>
+      </modules>
+
+    </module_system>
+
+    <environment_variables>
+      <env name="OMP_STACKSIZE">256M</env>
+    </environment_variables>
+    <environment_variables compiler="intel">
+      <env name="I_MPI_EXTRA_FILESYSTEM_LIST">gpfs</env>
+      <env name="I_MPI_EXTRA_FILESYSTEM">on</env>
+      <env name="I_MPI_PLATFORM">snb</env>
+      <env name="I_MPI_HYDRA_BOOTSTRAP">lsf</env>
+      <env name="I_MPI_LSF_USE_COLLECTIVE_LAUNCH">1</env>
+      <env name="I_MPI_DAPL_UD">on</env>
+      <env name="I_MPI_DAPL_SCALABLE_PROGRESS">on</env>
+      <env name="XIOS_PATH">/users/home/models/nemo/xios-cmip6/intel_xe_2013</env>
+    </environment_variables>
+  </machine>
+    
+</config_machines>
