@@ -1,0 +1,42 @@
+Compset longname is 1850_CAM60_CLM50%BGC-CROP_CICE_POP2%ECO_MOSART_CISM2%NOEVOLVE_WW3_BGC%BDRD
+Compset specification file is /glade/work/nperlin/CESM2/cesm2.2.2/cime_config/config_compsets.xml
+Automatically adding SIAC to compset
+Automatically adding SESP to compset
+Compset forcing is 1850
+Com forcing is Biogeochemistry intercomponent  with diagnostic CO2
+ATM component is CAM cam6 physics:
+LND component is clm5.0:BGC (vert. resol. CN and methane) with prognostic crop:
+ICE component is Sea ICE (cice) model version 5
+OCN component is POP2 Ecosystem
+ROF component is MOSART: MOdel for Scale Adaptive River Transport
+GLC component is cism2 (default, higher-order, can run in parallel):cism ice evolution turned off (this is the standard configuration unless you're explicitly interested in ice evolution):
+WAV component is Wave Watch
+IAC component is Stub iac component
+ESP component is Stub external system processing (ESP) component
+Pes     specification file is /glade/work/nperlin/CESM2/cesm2.2.2/cime_config/config_pes.xml
+Compset specific settings: name is RUN_STARTDATE and value is 0001-01-01
+Machine is derecho
+Pes setting: grid match    is a%0.9x1.25.+l%0.9x1.25.+oi%gx1 
+Pes setting: grid          is a%0.9x1.25_l%0.9x1.25_oi%gx1v7_r%r05_g%gland4_w%ww3a_z%null_m%gx1v7 
+Pes setting: compset       is 1850_CAM60_CLM50%BGC-CROP_CICE_POP2%ECO_MOSART_CISM2%NOEVOLVE_WW3_SIAC_SESP_BGC%BDRD 
+Pes setting: tasks       is {'NTASKS_ATM': -8, 'NTASKS_LND': -4, 'NTASKS_ROF': -4, 'NTASKS_ICE': -4, 'NTASKS_OCN': -1, 'NTASKS_GLC': -8, 'NTASKS_WAV': -2, 'NTASKS_CPL': -8} 
+Pes setting: threads     is {'NTHRDS_ATM': 1, 'NTHRDS_LND': 1, 'NTHRDS_ROF': 1, 'NTHRDS_ICE': 1, 'NTHRDS_OCN': 1, 'NTHRDS_GLC': 1, 'NTHRDS_WAV': 1, 'NTHRDS_CPL': 1} 
+Pes setting: rootpe      is {'ROOTPE_ATM': 0, 'ROOTPE_LND': 0, 'ROOTPE_ROF': 0, 'ROOTPE_ICE': -4, 'ROOTPE_OCN': -8, 'ROOTPE_GLC': 0, 'ROOTPE_WAV': 0, 'ROOTPE_CPL': 0} 
+Pes setting: pstrid      is {} 
+Pes other settings: {}
+Pes comments: none
+setting additional fields from config_pes: {}
+ Compset is: 1850_CAM60_CLM50%BGC-CROP_CICE_POP2%ECO_MOSART_CISM2%NOEVOLVE_WW3_SIAC_SESP_BGC%BDRD 
+ Grid is: a%0.9x1.25_l%0.9x1.25_oi%gx1v7_r%r05_g%gland4_w%ww3a_z%null_m%gx1v7 
+ Components in compset are: ['cam', 'clm', 'cice', 'pop', 'mosart', 'cism', 'ww3', 'siac', 'sesp'] 
+
+*********************************************************************************************************************************
+This compset and grid combination is not scientifically supported, however it is used in 12 tests.
+*********************************************************************************************************************************
+
+No charge_account info available, using value from PROJECT
+cesm model version found: release-cesm2.2.2
+Batch_system_type is pbs
+job is case.run USER_REQUESTED_WALLTIME None USER_REQUESTED_QUEUE None WALLTIME_FORMAT %H:%M:%S
+job is case.st_archive USER_REQUESTED_WALLTIME None USER_REQUESTED_QUEUE None WALLTIME_FORMAT %H:%M:%S
+ Creating Case directory /glade/work/nperlin/CESM2/EXPT/Atm1_Ocn1
